@@ -55,7 +55,7 @@ public class Robot extends TimedRobot {
     System.out.print("Gyro: ");
     System.out.println(Math.round(gyro.getAngle()));
     System.out.print("Accel: ");
-    System.out.println(Math.round(gyro.getVelocityY()));
+    System.out.println(Math.round(gyro.getVelocityX()));
   }
 
   @Override
