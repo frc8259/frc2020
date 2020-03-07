@@ -3,6 +3,7 @@ package frc.robot;
 import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PWMVictorSPX;
@@ -20,6 +21,8 @@ public class Robot extends TimedRobot {
 
   public final PWMVictorSPX intakeMotor = new PWMVictorSPX(2);
   public final PWMVictorSPX beltMotor = new PWMVictorSPX(3);
+
+  public final AnalogInput bottomBelt = new AnalogInput(1);
 
   public final PWMVictorSPX leftLift = new PWMVictorSPX(4);
   public final PWMVictorSPX rightLift = new PWMVictorSPX(5);
@@ -52,10 +55,8 @@ public class Robot extends TimedRobot {
 
   @Override
   public void robotPeriodic() {
-    System.out.print("Gyro: ");
-    System.out.println(Math.round(gyro.getAngle()));
-    System.out.print("Accel: ");
-    System.out.println(Math.round(gyro.getVelocityX()));
+    System.out.println("Gyro: " + Math.round(gyro.getAngle()));
+    System.out.println("Accel: " + Math.round(gyro.getVelocityX()));
   }
 
   @Override
@@ -107,9 +108,11 @@ public class Robot extends TimedRobot {
       intakeMotor.stopMotor();
     }
 
-    if (operator.getPOV() == 180) {
+    if (operator.getPOV() == 0) {
+      intakeMotor.set(1);
       beltMotor.set(1);
-    } else if (operator.getPOV() == 0) {
+    } else if (operator.getPOV() == 180) {
+      intakeMotor.set(-1);
       beltMotor.set(-1);
     } else {
       beltMotor.stopMotor();
